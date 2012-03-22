@@ -2,13 +2,13 @@
 # This script checks for arguments, if they don't exist it opens the Rhino dialog
 # if arguments do exist, it loads the script in the first argument and passes the other arguments to the script
 # ie: ./js steal/script/controller Todo
-execDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+execDir="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 if [ $# -eq 0 ]
 then
   java -cp $execDir/steal/rhino/js.jar:$execDir/funcunit/java/selenium-java-client-driver.jar org.mozilla.javascript.tools.shell.Main
   exit 127
 fi
-CP=$execDir/funcunit/java/selenium-java-client-driver.jar:steal/rhino/js.jar
+CP=$execDir/funcunit/java/selenium-java-client-driver.jar:$execDir/steal/rhino/js.jar
 
 ERRORLEV=0
 if [ $1 = "-e" ]
@@ -36,7 +36,7 @@ fi
 
 if [ $1 = "-d" ]
 then
-        java -classpath $execDir/steal/rhino/js.jar:steal/rhino/selenium-java-client-driver.jar org.mozilla.javascript.tools.debugger.Main
+        java -classpath $execDir/steal/rhino/js.jar:$execDir/steal/rhino/selenium-java-client-driver.jar org.mozilla.javascript.tools.debugger.Main
         exit 127
 fi
 
